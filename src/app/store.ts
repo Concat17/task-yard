@@ -3,8 +3,6 @@ import reduxImmutableStateInvariant from "redux-immutable-state-invariant";
 
 import boardReducer from "../features/Board/boardSlice";
 
-console.log(import.meta.env.DEV);
-
 const middleware = import.meta.env.DEV
   ? // eslint-disable-next-line @typescript-eslint/no-var-requires
     [reduxImmutableStateInvariant()]
