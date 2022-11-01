@@ -12,6 +12,8 @@
     "@reduxjs/toolkit": "^1.8.6",
     "@types/node": "^18.11.7",
     "react": "^18.2.0",
+    "react-dnd": "^16.0.1",
+    "react-dnd-html5-backend": "^16.0.1",
     "react-dom": "^18.2.0",
     "react-redux": "^8.0.4",
     "redux": "^4.2.0"
@@ -29,6 +31,7 @@
     "eslint": "^8.20.0",
     "eslint-plugin-react": "^7.31.10",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-redux": "^4.0.0",
     "postcss": "^8.4.18",
     "redux-immutable-state-invariant": "^2.1.0",
     "tailwindcss": "^3.2.1",

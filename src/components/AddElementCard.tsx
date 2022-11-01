@@ -1,27 +1,26 @@
-import { ActionCreatorWithPayload } from "@reduxjs/toolkit";
 import { useCallback, useState } from "react";
 
-import { useAppDispatch } from "../app/hooks";
 import { Button } from "./Button";
 import { CloseIcon } from "./CloseIcon";
 
 type AddElementCardProps = {
-  onAddElement: ActionCreatorWithPayload<string, string>;
+  // onAddElement: ActionCreatorWithPayload<string, string>;
+  onAddElement: (foo: string) => void;
 };
 
 export const AddElementCard = ({ onAddElement }: AddElementCardProps) => {
   const [text, setText] = useState("");
   const [open, setOpen] = useState(false);
-  const dispatch = useAppDispatch();
 
   const handleAdd = useCallback(() => {
     setText("");
     setOpen(false);
-    dispatch(onAddElement(text));
-  }, [dispatch, onAddElement, text]);
+    console.log("add");
+    onAddElement(text);
+  }, [onAddElement, text]);
 
   return (
-    <div className="mx-2 w-[250px] px-2 py-2 flex flex-col h-fit text-white bg-violet-800">
+    <div className=" py-2 flex flex-col h-fit text-white">
       {open ? (
         <>
           <input
@@ -32,7 +31,7 @@ export const AddElementCard = ({ onAddElement }: AddElementCardProps) => {
           <div className="mt-2 flex justify-between items-center">
             <Button onClick={handleAdd}>Add card</Button>
             <CloseIcon
-              className="cursor-pointer hover:stroke-gray-300"
+              className="hover:stroke-gray-300 cursor-pointer"
               onClick={() => setOpen(false)}
             />
           </div>

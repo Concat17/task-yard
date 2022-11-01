@@ -8,7 +8,10 @@ interface BoardState {
 }
 
 const initialState: BoardState = {
-  columns: [{ title: "test" }],
+  columns: [
+    { title: "test", tasks: [{ title: "to do" }, { title: "to do2" }] },
+    { title: "test3", tasks: [{ title: "to do" }] },
+  ],
 };
 
 export const boardSlice = createSlice({
@@ -16,16 +19,30 @@ export const boardSlice = createSlice({
   initialState,
   reducers: {
     addColumn: (state, action: PayloadAction<string>) => {
-      state.columns.push({ title: action.payload });
+      state.columns.push({ title: action.payload, tasks: [] });
     },
     deleteColumn: (state, action: PayloadAction<string>) => {
       state.columns = state.columns.filter((c) => c.title !== action.payload);
     },
+    addTask: (
+      state,
+      action: PayloadAction<{ columnTitle: string; taskTitle: string }>
+    ) => {
+      const { columnTitle, taskTitle } = action.payload;
+
+      const column = state.columns.find((c) => c.title === columnTitle);
+
+      if (!column) return;
+
+      column.tasks.push({ title: taskTitle });
+    },
   },
 });
 
-export const { addColumn, deleteColumn } = boardSlice.actions;
+export const { addTask, addColumn, deleteColumn } = boardSlice.actions;
 
 export const selectColumns = (state: RootState) => state.board.columns;
+export const selectSelectColumnByTitle = (state: RootState, title: string) =>
+  state.board.columns.find((c) => c.title === title);
 
 export default boardSlice.reducer;

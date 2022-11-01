@@ -1,23 +1,27 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+
+import { Task } from "../../types";
 
 interface ColumnState {
-  tasks: string[];
+  tasks: Task[];
 }
 
 const initialState: ColumnState = {
-  tasks: ["task1", "task2", "task3"],
+  tasks: [{ title: "task1" }],
 };
 
 export const columnSlice = createSlice({
   name: "column",
   initialState,
   reducers: {
-    add: (state) => {
-      state.tasks.push("taskNew");
+    addTask: (state, action: PayloadAction<string>) => {
+      // state.columns.push({ title: action.payload });
+      console.log("add", state);
+      state.tasks.push({ title: action.payload });
     },
   },
 });
 
-export const { add } = columnSlice.actions;
+export const { addTask } = columnSlice.actions;
 
 export default columnSlice.reducer;
