@@ -24,6 +24,18 @@ export const boardSlice = createSlice({
     deleteColumn: (state, action: PayloadAction<string>) => {
       state.columns = state.columns.filter((c) => c.title !== action.payload);
     },
+    renameColumn: (
+      state,
+      action: PayloadAction<{ columnTitle: string; newTitle: string }>
+    ) => {
+      const { columnTitle, newTitle } = action.payload;
+
+      const column = state.columns.find((c) => c.title === columnTitle);
+
+      if (!column) return;
+
+      column.title = newTitle;
+    },
     addTask: (
       state,
       action: PayloadAction<{ columnTitle: string; taskTitle: string }>
@@ -39,7 +51,8 @@ export const boardSlice = createSlice({
   },
 });
 
-export const { addTask, addColumn, deleteColumn } = boardSlice.actions;
+export const { addTask, addColumn, deleteColumn, renameColumn } =
+  boardSlice.actions;
 
 export const selectColumns = (state: RootState) => state.board.columns;
 export const selectSelectColumnByTitle = (state: RootState, title: string) =>

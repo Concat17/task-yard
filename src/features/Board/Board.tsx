@@ -4,7 +4,6 @@ import { Column } from "../Column";
 import { addColumn, selectColumns } from "./boardSlice";
 
 export const Board = () => {
-  const a = 3;
   const columns = useAppSelector(selectColumns);
   const dispatch = useAppDispatch();
 

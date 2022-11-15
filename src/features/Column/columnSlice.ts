@@ -14,14 +14,12 @@ export const columnSlice = createSlice({
   name: "column",
   initialState,
   reducers: {
-    addTask: (state, action: PayloadAction<string>) => {
-      // state.columns.push({ title: action.payload });
-      console.log("add", state);
+    addTaskNew: (state, action: PayloadAction<string>) => {
       state.tasks.push({ title: action.payload });
     },
   },
 });
 
-export const { addTask } = columnSlice.actions;
+export const { addTaskNew } = columnSlice.actions;
 
 export default columnSlice.reducer;

@@ -1,10 +1,9 @@
 import { useCallback, useState } from "react";
-
+import { useDetectClickOutside } from "../hooks";
 import { Button } from "./Button";
 import { CloseIcon } from "./CloseIcon";
 
 type AddElementCardProps = {
-  // onAddElement: ActionCreatorWithPayload<string, string>;
   onAddElement: (foo: string) => void;
 };
 
@@ -12,19 +11,25 @@ export const AddElementCard = ({ onAddElement }: AddElementCardProps) => {
   const [text, setText] = useState("");
   const [open, setOpen] = useState(false);
 
+  const handleOutsideClick = () => {
+    setOpen(false);
+  };
+
+  const ref = useDetectClickOutside({
+    onTriggered: handleOutsideClick,
+  });
+
   const handleAdd = useCallback(() => {
     setText("");
-    setOpen(false);
-    console.log("add");
     onAddElement(text);
   }, [onAddElement, text]);
 
   return (
-    <div className=" py-2 flex flex-col h-fit text-white">
+    <div ref={ref} className="py-2 flex flex-col w-full h-fit text-white">
       {open ? (
         <>
           <input
-            className="px-2 py-1 rounded text-black"
+            className="px-2 py-1 w-full rounded text-black"
             value={text}
             onChange={(event) => setText(event.target.value)}
           />
@@ -37,9 +42,9 @@ export const AddElementCard = ({ onAddElement }: AddElementCardProps) => {
           </div>
         </>
       ) : (
-        <div className="cursor-pointer" onClick={() => setOpen(true)}>
+        <span className="cursor-pointer" onClick={() => setOpen(true)}>
           Add card
-        </div>
+        </span>
       )}
     </div>
   );

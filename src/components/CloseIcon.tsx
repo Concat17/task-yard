@@ -8,7 +8,7 @@ export const CloseIcon = (props: React.ComponentPropsWithoutRef<"svg">) => {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className={`w-6 h-6 ${classNameProps}`}
+      className={`min-w-fit h-6 ${classNameProps}`}
       {...rest}
     >
       <path
