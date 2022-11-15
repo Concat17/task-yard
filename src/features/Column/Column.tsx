@@ -4,6 +4,7 @@ import { AddElementCard, CloseIcon, EditableInput } from "../../components";
 import {
   addTask,
   deleteColumn,
+  removeTask,
   renameColumn,
   selectSelectColumnByTitle,
 } from "../Board";
@@ -50,7 +51,15 @@ export const Column = ({ title }: ColumnProps) => {
 
       <div className="flex flex-col gap-2">
         {column.tasks.map((task, i) => (
-          <Task key={i} name={task.title} />
+          <Task
+            key={i}
+            title={task.title}
+            onRemove={() =>
+              dispatch(
+                removeTask({ columnTitle: title, taskTitle: task.title })
+              )
+            }
+          />
         ))}
       </div>
 
