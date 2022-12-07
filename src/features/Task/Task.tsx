@@ -1,13 +1,39 @@
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
 import { CloseIcon } from "../../components";
 
 type TaskProps = {
+  id: string;
   title: string;
-  onRemove: () => void;
+  onRemove?: () => void;
 };
 
-export const Task = ({ title, onRemove }: TaskProps) => {
+export const Task = ({ id, title, onRemove }: TaskProps) => {
+  const {
+    listeners,
+    attributes,
+    setNodeRef,
+    transition,
+    transform,
+    isDragging,
+  } = useSortable({
+    id,
+  });
+
+  const style = {
+    opacity: isDragging ? 0.4 : undefined,
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
   return (
-    <div className="px-2 py-1 rounded text-black bg-white">
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+      className="px-2 py-1 rounded text-black bg-white"
+    >
       <span>{title}</span>
       <CloseIcon
         onClick={onRemove}

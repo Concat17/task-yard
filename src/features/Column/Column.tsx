@@ -1,14 +1,7 @@
 import { useAppDispatch, useAppSelector } from "../../app/hooks";
 import { AddElementCard, CloseIcon, EditableInput } from "../../components";
-
-import {
-  addTask,
-  deleteColumn,
-  removeTask,
-  renameColumn,
-  selectSelectColumnByTitle,
-} from "../Board";
-import { Task } from "../Task";
+import { addTask, renameColumn, selectSelectColumnByTitle } from "../Board";
+import { TaskList } from "./TaskList";
 
 type ColumnProps = {
   title: string;
@@ -22,6 +15,7 @@ export const Column = ({ title }: ColumnProps) => {
 
   if (!column) return <></>;
 
+  //TODO: move away or rewrite
   const curriedAddTask =
     (columnTitle: string): ((foo: string) => void) =>
     (taskTitle: string) =>
@@ -44,25 +38,11 @@ export const Column = ({ title }: ColumnProps) => {
         </h2>
 
         <CloseIcon
-          onClick={() => dispatch(deleteColumn(title))}
+          // onClick={() => dispatch(deleteColumn(title))}
           className="cursor-pointer hover:stroke-gray-300"
         />
       </div>
-
-      <div className="flex flex-col gap-2">
-        {column.tasks.map((task, i) => (
-          <Task
-            key={i}
-            title={task.title}
-            onRemove={() =>
-              dispatch(
-                removeTask({ columnTitle: title, taskTitle: task.title })
-              )
-            }
-          />
-        ))}
-      </div>
-
+      <TaskList title={column.title} tasks={column.tasks} />
       <AddElementCard onAddElement={addNewTask} />
     </div>
   );
